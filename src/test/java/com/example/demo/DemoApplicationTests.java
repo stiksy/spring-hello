@@ -14,4 +14,8 @@ class DemoApplicationTests {
 		sleep(3000); // Simulate a delay of 2 seconds
 	}
 
+	@Test
+	void shouldFail() {
+		throw new RuntimeException("Intentional failure for testing purposes");
+	}
 }
