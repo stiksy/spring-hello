@@ -24,6 +24,12 @@ dependencies {
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
+test {
+	testLogging {
+		showStandardStreams = true
+	}
+}
+
 tasks.named('test') {
 	useJUnitPlatform()
 }
