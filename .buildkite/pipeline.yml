@@ -1,8 +1,6 @@
 steps:
   - label: ":hammer: Build"
     key: build
-    command: |
-      ./gradlew clean assemble --no-daemon
     artifact_paths:
       - ".gradle/**"
       - "**/build/**"
@@ -10,17 +8,20 @@ steps:
       - docker#v5.9.0:
           image: eclipse-temurin:17-jdk
           always-pull: true
+    command: |
+      ./gradlew clean assemble --no-daemon
 
   - label: ":test_tube: Test"
     depends_on: build
-    command: |
-      # pull artifacts produced by the build step into the workspace
-      buildkite-agent artifact download ".gradle/**" .
-      buildkite-agent artifact download "**/build/**" .
-
-      # run tests (Gradle should find compiled classes and avoid recompiling)
-      ./gradlew test --no-daemon
     plugins:
+      # Download artifacts into the job’s working dir (host), before running the container
+      - artifacts#v1.9.0:
+          download:
+            - ".gradle/**"
+            - "**/build/**"
       - docker#v5.9.0:
           image: eclipse-temurin:17-jdk
           always-pull: true
+    command: |
+      # run tests (Gradle should find compiled classes and avoid recompiling)
+      ./gradlew test --no-daemon
