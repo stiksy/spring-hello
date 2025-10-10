@@ -46,5 +46,8 @@ steps:
       - docker#v5.9.0:
           image: eclipse-temurin:17-jdk
           always-pull: true
+      - test-collector#v1.11.0:
+          files: "build/test-results/test/TEST-*.xml"
+          format: "junit"
     command: |
       ./gradlew test --no-daemon
