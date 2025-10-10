@@ -3,7 +3,7 @@ steps:
     key: build
     artifact_paths:
       - ".gradle/**"
-      - "**/build/**"
+      - "build/**"
     plugins:
       - docker#v5.9.0:
           image: eclipse-temurin:17-jdk
@@ -20,6 +20,6 @@ steps:
           mount-buildkite-agent: true
     command: |
       buildkite-agent artifact download ".gradle/**" .
-      buildkite-agent artifact download "**/build/**" .
+      buildkite-agent artifact download "build/**" .
       # run tests (Gradle should find compiled classes and avoid recompiling)
       ./gradlew test --no-daemon
