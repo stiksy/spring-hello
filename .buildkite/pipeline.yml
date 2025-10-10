@@ -49,6 +49,6 @@ steps:
           image: eclipse-temurin:17-jdk
           always-pull: true
       - junit-annotate#v2.7.0:
-          artifacts: "build/test-results/test/TEST-*.xml"
+          input: "build/test-results/test/TEST-*.xml"
     command: |
       ./gradlew test --no-daemon
