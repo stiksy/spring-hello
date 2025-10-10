@@ -1,0 +1,14 @@
+steps:
+  - label: ":hammer: Build"
+    command: ./gradlew build
+    plugins:
+      - docker#v5.9.0:
+          image: eclipse-temurin:17-jdk
+          always-pull: true
+
+  - label: ":test_tube: Test"
+    command: ./gradlew test
+    plugins:
+      - docker#v5.9.0:
+          image: eclipse-temurin:17-jdk
+          always-pull: true
