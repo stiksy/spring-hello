@@ -42,12 +42,13 @@ steps:
 
   - label: ":test_tube: Test (no artifacts)"
     depends_on: build
+    artifact_paths:
+      - "build/test-results/test/TEST-*.xml"
     plugins:
       - docker#v5.9.0:
           image: eclipse-temurin:17-jdk
           always-pull: true
-      - test-collector#v1.11.0:
-          files: "build/test-results/test/TEST-*.xml"
-          format: "junit"
+      - junit-annotate#v2.7.0:
+          artifacts: "build/test-results/test/TEST-*.xml"
     command: |
       ./gradlew test --no-daemon
