@@ -1,16 +1,25 @@
 steps:
   - label: ":hammer: Build"
-    key: "build"
-    command: ./gradlew build
+    key: build
+    command: ./gradlew build --build-cache --no-daemon
     plugins:
       - docker#v5.9.0:
           image: eclipse-temurin:17-jdk
           always-pull: true
+          # Share caches between steps on the SAME agent
+          volumes:
+            - "/var/lib/buildkite-agent/gradle-cache:/root/.gradle"
+    agents:
+      queue: "java"   # ensure both steps target the same queue
 
   - label: ":test_tube: Test"
-    depends_on: "build"
-    command: ./gradlew test
+    depends_on: build
+    command: ./gradlew test --build-cache --no-daemon
     plugins:
       - docker#v5.9.0:
           image: eclipse-temurin:17-jdk
           always-pull: true
+          volumes:
+            - "/var/lib/buildkite-agent/gradle-cache:/root/.gradle"
+    agents:
+      queue: "java"
