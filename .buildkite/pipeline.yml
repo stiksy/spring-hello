@@ -1,5 +1,6 @@
 steps:
   - label: ":hammer: Build"
+    key: "build"
     command: ./gradlew build
     plugins:
       - docker#v5.9.0:
@@ -7,6 +8,7 @@ steps:
           always-pull: true
 
   - label: ":test_tube: Test"
+    depends_on: "build"
     command: ./gradlew test
     plugins:
       - docker#v5.9.0:
