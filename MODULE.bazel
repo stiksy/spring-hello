@@ -1,0 +1,20 @@
+module(
+    name = "spring_hello",
+    version = "0.0.1",
+)
+
+bazel_dep(name = "rules_java", version = "7.12.4")
+bazel_dep(name = "rules_jvm_external", version = "6.6")
+
+maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
+maven.install(
+    artifacts = [
+        "org.springframework.boot:spring-boot-starter:3.5.6",
+        "org.springframework.boot:spring-boot-starter-test:3.5.6",
+        "junit:junit:4.13.2",
+    ],
+    repositories = [
+        "https://repo1.maven.org/maven2",
+    ],
+)
+use_repo(maven, "maven")

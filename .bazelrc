@@ -1,0 +1,14 @@
+# Common build options
+build --java_language_version=17
+build --java_runtime_version=remotejdk_17
+build --tool_java_language_version=17
+build --tool_java_runtime_version=remotejdk_17
+
+# Test output
+test --test_output=all
+
+# Enable bzlmod
+common --enable_bzlmod
+
+# JUnit 5 configuration
+test --jvmopt=-Djunit.jupiter.extensions.autodetection.enabled=true
