@@ -127,7 +127,16 @@ deps = [
 ```
 
 ### Adding a New Test
-1. Create test file in `src/test/java/com/example/demo/`
+1. Create test file in `src/test/java/com/example/demo/` (e.g., `MyNewTest.java`)
 2. Use JUnit 4 annotations: `import org.junit.Test;`
 3. Make test class and methods `public`
-4. Add test target to `src/test/java/com/example/demo/BUILD`
+4. Add the filename to the `TEST_FILES` list in `src/test/java/com/example/demo/BUILD`:
+   ```python
+   TEST_FILES = [
+       "DemoApplicationTests.java",
+       "MyNewTest.java",  # Add your new test here
+   ]
+   ```
+5. Run `bazel test //...` to execute all tests including the new one
+
+The BUILD file uses a Starlark loop to automatically generate a `java_test` target for each file in the list, so you only need to add the filename once.

@@ -9,8 +9,3 @@ alias(
     name = "spring-hello-lib",
     actual = "//src/main/java/com/example/demo:demo_lib",
 )
-
-alias(
-    name = "test",
-    actual = "//src/test/java/com/example/demo:DemoApplicationTests",
-)

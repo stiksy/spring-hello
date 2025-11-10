@@ -1,0 +1,17 @@
+directories:
+  src/main/java
+  src/test/java
+
+targets:
+  //src/main/java/com/example/demo:demo_lib
+  //src/test/java/com/example/demo:DemoApplicationTests
+
+derive_targets_from_directories: true
+
+java_language_level: 17
+
+# Import external workspace dependencies
+import_run_configurations: true
+
+# Enable automatic dependency management
+enable_auto_sync: true
